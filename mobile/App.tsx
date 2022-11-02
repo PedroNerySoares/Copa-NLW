@@ -14,6 +14,7 @@ import { THEME } from "./src/styles/themes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
+    
     Roboto_400Regular,
     Roboto_500Medium,
     Roboto_700Bold,
