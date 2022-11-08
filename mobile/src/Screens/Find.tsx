@@ -4,13 +4,13 @@ import Logo from "../assets/logo.svg";
 import { Input } from "../components/Input";
 import { Option } from "../components/Option";
 import { Button } from "../components/Button";
-export function New() {
+export function Find() {
   return (
     <VStack flex={1} bgColor="gray.900">
       <Header title="Criar novo bolão" showBackButton />
 
-      <VStack mt={8} mx={5} alignItems="center">
-        <Logo />
+      <VStack mb={8} mx={5} alignItems="center">
+
 
         <Heading
           fontFamily={"heading"}
@@ -19,16 +19,11 @@ export function New() {
           my={8}
           textAlign="center"
         >
-          Crie seu próprio bolão da copa e compartilhe entre amigos!
+          Encontre um bolão através de{'\n'}seu código único
         </Heading>
-        <Input mb={2} placeholder="Qual nome do seu bolão?" />
-        <Button title="CRIAR MEU BOLÂO" />
-        <Text color="gray.200"  fontSize="sm" alignItems="center" px={10} mt={4}>
-          Após criar seu bolão, você receberá um código único que poderá usar
-          para convidar outras pessoas.
-        </Text>
+        <Input mb={2} placeholder="Qual o código do bolão??" />
+        <Button title="BUSCAR BOLÃO" />
 
-        {/* <Option isSelected={true} title={"seila"} /> */}
       </VStack>
     </VStack>
   );
