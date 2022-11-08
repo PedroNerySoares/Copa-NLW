@@ -41,9 +41,6 @@ export default function Home(props: HomePropos) {
 
   }
 
-
-
-
   return (
     // <h1>Hello Word</h1>
     // <h1 className="text-violet-500">contagem:{props.count}</h1>
