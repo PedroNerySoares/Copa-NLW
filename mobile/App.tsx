@@ -34,9 +34,9 @@ export default function App() {
       />
 
 
-      {fontsLoaded ? <Pools /> : <Loading />}
+      {/* {fontsLoaded ? <Pools /> : <Loading />} */}
       {/* {fontsLoaded ? <Find  /> : <Loading />} */}
-      {/* {fontsLoaded ? <SignIn /> : <Loading />} */}
+      {fontsLoaded ? <SignIn /> : <Loading />}
       </AuthContextProvider>
     </NativeBaseProvider>
   );
