@@ -15,6 +15,7 @@ import { AuthContextProvider } from "./src/Contexts/AuthContext";
 import { New } from "./src/Screens/New";
 import { Find } from "./src/Screens/Find";
 import { Pools } from "./src/Screens/Pools";
+import { Routes } from "./src/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -36,7 +37,7 @@ export default function App() {
 
       {/* {fontsLoaded ? <Pools /> : <Loading />} */}
       {/* {fontsLoaded ? <Find  /> : <Loading />} */}
-      {fontsLoaded ? <SignIn /> : <Loading />}
+      {fontsLoaded ? <Routes/>: <Loading />}
       </AuthContextProvider>
     </NativeBaseProvider>
   );

@@ -1,44 +1,9 @@
-// import { createContext, ReactNode } from "react";
-
-
-// interface UserProps{
-//   name: String,
-//   avatarUrl:string,
-// }
-// export interface AuthContextDataProps{
-//   user: UserProps,
-//   signIn: ()=>Promise<void>
-// }
-
-// interface AuthProviderProps{
-//   children: ReactNode;
-// }
-
-// export  const AuthContext = createContext({} as AuthContextDataProps);
-// export function AuthContextProvider({children}:AuthProviderProps){
-  
-//   async function signIn(){
-//     console.log("vamos logar")
-//   }
-  
-  
-//   return(
-//     <AuthContext.Provider value={{
-//       signIn,
-//       user:{
-//         name:'Pedro',
-//         avatarUrl:'https://github.com/PedroNerySoares.png'
-//       }
-//     }}>
-//       {children}
-//     </AuthContext.Provider>
-//   )
-// }
-
 import { createContext, ReactNode, useState, useEffect } from "react";
 import * as AuthSession from "expo-auth-session";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
+import { api } from "../services/api";
+
 WebBrowser.maybeCompleteAuthSession();
 
 export interface UserProps {
@@ -62,15 +27,16 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const [isUserLoadind, setIsUserLoadind] = useState(false);
 
   const [request, response, prompAsync] = Google.useAuthRequest({
-    clientId:"904551769342-mq3p6sgvai7ticnsrsruiorcnf7h2osd.apps.googleusercontent.com",
+    clientId:
+      "904551769342-mq3p6sgvai7ticnsrsruiorcnf7h2osd.apps.googleusercontent.com",
     redirectUri: AuthSession.makeRedirectUri({ useProxy: true }),
     scopes: ["profile", "email"],
   });
 
-  console.log (AuthSession.makeRedirectUri({useProxy:true}))
+  // console.log(AuthSession.makeRedirectUri({ useProxy: true }));
 
   async function signIn() {
-    console.log("vamos logar")
+    // console.log("vamos logar");
     try {
       setIsUserLoadind(true);
       await prompAsync();
@@ -81,13 +47,33 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     }
   }
 
-  async function signInWithGoogle(acces_token:string) {
-    console.log("token===>",acces_token)
+  async function signInWithGoogle(access_token: string) {
+    try {
+      setIsUserLoadind(true);
+
+      const tokenResponse =await api.post('/users',{access_token})
+      // console.log(tokenResponse.data)
+      api.defaults.headers.common['Authorization']=`Bearer ${tokenResponse.data.token}`;
+
+      const userInfoResponse = await api.get('/me');
+      setUser(userInfoResponse.data.user);
+      console.log(userInfoResponse.data);
+
+
+
+    } catch (error) {
+      console.log(error);
+      throw error;
+    
+    } finally {
+      setIsUserLoadind(false);
+    
+    }
   }
   useEffect(() => {
     if (response?.type === "success" && response.authentication?.accessToken) {
-      console.log(response.authentication.accessToken)
-      signInWithGoogle(response.authentication.accessToken)
+      // console.log(response.authentication.accessToken);
+      signInWithGoogle(response.authentication.accessToken);
     }
   }, [response]);
   return (
