@@ -7,6 +7,7 @@ import { useTheme } from "native-base";
 import { New } from "../Screens/New";
 import { Pools } from "../Screens/Pools";
 import { Find } from "../Screens/Find";
+import { Details } from "../Screens/Details";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 export function AppRoutes() {
@@ -51,7 +52,13 @@ export function AppRoutes() {
       <Screen
         name="find"
         component={Find}
-        options={{tabBarButton:()=>null}}
+        options={{ tabBarButton: () => null }}
+      />
+
+      <Screen
+        name="details"
+        component={Details}
+        options={{ tabBarButton: () => null }}
       />
     </Navigator>
   );

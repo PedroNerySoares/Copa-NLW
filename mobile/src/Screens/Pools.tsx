@@ -70,7 +70,8 @@ export function Pools() {
           data={pools}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <PoolCard data={item} onPress={() => console.log(item.id)} />
+            <PoolCard data={item} onPress={()=> navigate('details',{id:item.id})} />
+            // <PoolCard data={item} onPress={() => console.log(item.id)} />
           )}
           px={5}
           showsHorizontalScrollIndicator={false}
